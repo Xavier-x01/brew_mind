@@ -595,7 +595,51 @@
   .plan-btn:hover { background: var(--green); color: white; }
   .plan-card.featured .plan-btn { background: var(--amber); border-color: var(--amber); color: var(--espresso); }
   .plan-card.featured .plan-btn:hover { background: #e09520; border-color: #e09520; }
-
+/* ── FAQ ── */
+  #faq { background: var(--cream); }
+  .faq-container { max-width: 800px; margin: 0 auto; }
+  .faq-header { text-align: center; margin-bottom: 3.5rem; }
+  .faq-grid { display: flex; flex-direction: column; gap: 1rem; }
+  .faq-item {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .faq-item:hover { box-shadow: 0 8px 24px rgba(44,95,46,0.06); transform: translateY(-2px); }
+  .faq-q {
+    padding: 1.2rem 1.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+  }
+  .faq-q::-webkit-details-marker { display: none; } /* Hides default arrow */
+  .faq-q::after {
+    content: '+';
+    font-family: 'DM Mono', monospace;
+    color: var(--green);
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+  }
+  details[open] .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    padding: 0 1.5rem 1.2rem;
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    border-top: 1px dashed rgba(0,0,0,0.05);
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+  }
+  .faq-a ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+  .faq-a li { margin-bottom: 0.4rem; }
   /* ── CONTACT ── */
   #contact { background: var(--cream); }
   .contact-grid {
@@ -755,7 +799,7 @@
     <li><a href="#menu">Menu</a></li>
     <li><a href="#courses">Learn to Earn</a></li>
     <li><a href="#membership">Membership</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#faq">FAQ</a></li> <li><a href="#contact">Contact</a></li>
     <li><a href="#membership" class="nav-cta">Join Now</a></li>
   </ul>
 </nav>
@@ -1235,7 +1279,50 @@
     </div>
   </div>
 </section>
+<section id="faq">
+  <div class="section-inner faq-container">
+    <div class="faq-header reveal">
+      <span class="section-tag">Got Questions?</span>
+      <h2 class="section-h2">Frequently Asked Questions</h2>
+      <p class="section-sub" style="margin: 0 auto;">Everything you need to know about brewing your mind.</p>
+    </div>
+    
+    <div class="faq-grid reveal">
+      <details class="faq-item">
+        <summary class="faq-q">What exactly is BrewMind Café?</summary>
+        <div class="faq-a">BrewMind Café is a coffee shop and AI learning ecosystem where you can learn valuable AI skills and earn real income while enjoying great coffee. We designed it as a community space for students, freelancers, remote workers, and entrepreneurs to grow without the pressure of a traditional classroom.</div>
+      </details>
 
+      <details class="faq-item">
+        <summary class="faq-q">Where are you located and when are you open?</summary>
+        <div class="faq-a">We are opening soon in Cebu City, Philippines! Our planned operating hours will be Monday to Friday (7 AM – 10 PM), Saturday (8 AM – 11 PM), and Sunday (9 AM – 8 PM). Join our waitlist for first access to our exact location!</div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">How does the "Learn to Earn" system work?</summary>
+        <div class="faq-a">
+          Our learning journey is built right into your coffee run:
+          <ul>
+            <li><strong>Step 1:</strong> Buy a drink to unlock a daily AI micro-lesson on our app or an in-café tablet.</li>
+            <li><strong>Step 2:</strong> Complete lessons to earn BrewPoints (redeemable for drinks, merch, or courses).</li>
+            <li><strong>Step 3:</strong> Progress through our 3 tracks to become BrewMind Certified.</li>
+            <li><strong>Step 4:</strong> Earn real income by teaching workshops, earning affiliate commissions, or landing freelance clients.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">Do I need prior tech experience to take the AI courses?</summary>
+        <div class="faq-a">Not at all! Our "Track 1: Brew Basics" is designed specifically for everyone and requires zero prior experience. You will learn practical basics like how to write your first ChatGPT prompt and how to use AI for everyday tasks.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">How much does it cost to learn?</summary>
+        <div class="faq-a">You can start learning for exactly ₱0. Our free "Brew" membership gives you one free AI micro-lesson per day and full access to Track 1. You can upgrade to our Mind (₱799/mo) or Elite (₱1,599/mo) tiers as your skills grow!</div>
+      </details>
+    </div>
+  </div>
+</section>
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
