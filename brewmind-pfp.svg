@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <!-- Brand colors: green=#2C5F2E, amber=#F5A623, cream=#FAF7F0, espresso=#1A1209 -->
+
+    <!-- Radial gradient background: dark espresso center to deep green edges -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%"  stop-color="#1A1209"/>
+      <stop offset="100%" stop-color="#2C5F2E"/>
+    </radialGradient>
+
+    <!-- Amber glow for the cup icon -->
+    <radialGradient id="amberGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#F5A623" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Cup body gradient -->
+    <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#FAF7F0"/>
+      <stop offset="100%" stop-color="#D4C9B0"/>
+    </linearGradient>
+
+    <!-- Noise texture filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noiseOut"/>
+      <feColorMatrix type="saturate" values="0" in="noiseOut" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="overlay" result="blended"/>
+      <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <!-- Clip to circle -->
+    <clipPath id="circleClip">
+      <circle cx="250" cy="250" r="250"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── Background ── -->
+  <circle cx="250" cy="250" r="250" fill="url(#bgGrad)"/>
+
+  <!-- Noise texture overlay -->
+  <circle cx="250" cy="250" r="250" fill="url(#bgGrad)" filter="url(#noise)" opacity="0.35"/>
+
+  <!-- Decorative rings (matching the site's semi-transparent circles) -->
+  <circle cx="250" cy="250" r="220" fill="none" stroke="#F5A623" stroke-width="1" opacity="0.12"/>
+  <circle cx="250" cy="250" r="195" fill="none" stroke="#FAF7F0" stroke-width="0.5" opacity="0.08"/>
+
+  <!-- Subtle ambient light blobs -->
+  <circle cx="160" cy="145" r="90"  fill="#F5A623" opacity="0.06"/>
+  <circle cx="340" cy="355" r="110" fill="#2C5F2E" opacity="0.18"/>
+  <circle cx="370" cy="130" r="60"  fill="#FAF7F0" opacity="0.04"/>
+
+  <!-- ── Amber glow behind cup ── -->
+  <circle cx="250" cy="232" r="100" fill="url(#amberGlow)"/>
+
+  <!-- ── Coffee Cup ── -->
+  <!-- Cup body -->
+  <rect x="188" y="195" width="124" height="90" rx="12" ry="12" fill="url(#cupGrad)"/>
+
+  <!-- Cup bottom taper -->
+  <path d="M200 285 Q188 285 192 308 L308 308 Q312 285 300 285 Z" fill="#D4C9B0"/>
+
+  <!-- Saucer -->
+  <ellipse cx="250" cy="313" rx="72" ry="10" fill="#C4B99A"/>
+  <ellipse cx="250" cy="310" rx="80" ry="12" fill="#D4C9B0"/>
+  <ellipse cx="250" cy="308" rx="80" ry="10" fill="#E0D6C0"/>
+
+  <!-- Cup handle -->
+  <path d="M312 215 Q348 215 348 250 Q348 285 312 285" fill="none" stroke="#D4C9B0" stroke-width="14" stroke-linecap="round"/>
+
+  <!-- Coffee liquid inside cup -->
+  <rect x="194" y="215" width="112" height="64" rx="8" ry="8" fill="#3D1F0A" opacity="0.85"/>
+
+  <!-- Coffee surface sheen -->
+  <ellipse cx="250" cy="218" rx="52" ry="7" fill="#6B3A1F" opacity="0.6"/>
+
+  <!-- Latte art: simple leaf/rosette swirl in amber -->
+  <path d="M250 228 Q240 238 250 248 Q260 238 250 228Z" fill="#F5A623" opacity="0.7"/>
+  <path d="M240 235 Q235 243 243 247 Q245 240 240 235Z" fill="#F5A623" opacity="0.45"/>
+  <path d="M260 235 Q265 243 257 247 Q255 240 260 235Z" fill="#F5A623" opacity="0.45"/>
+  <circle cx="250" cy="225" r="3" fill="#F5A623" opacity="0.5"/>
+
+  <!-- Steam wisps -->
+  <path d="M228 192 Q223 178 228 164 Q233 150 228 136" fill="none" stroke="#FAF7F0" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+  <path d="M250 188 Q245 172 250 156 Q255 140 250 124" fill="none" stroke="#FAF7F0" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
+  <path d="M272 192 Q277 178 272 164 Q267 150 272 136" fill="none" stroke="#FAF7F0" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- ── Wordmark ── -->
+  <!-- "BrewMind" in Playfair Display style -->
+  <text
+    x="250" y="374"
+    font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+    font-size="42"
+    font-weight="700"
+    letter-spacing="2"
+    text-anchor="middle"
+    fill="#FAF7F0">BrewMind</text>
+
+  <!-- Amber accent underline -->
+  <rect x="158" y="383" width="184" height="2.5" rx="1.25" fill="#F5A623" opacity="0.85"/>
+
+  <!-- Tagline -->
+  <text
+    x="250" y="410"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-size="13"
+    font-weight="400"
+    letter-spacing="3.5"
+    text-anchor="middle"
+    fill="#FAF7F0"
+    opacity="0.55">CAFÉ</text>
+
+  <!-- ── Amber dot accent top ── -->
+  <circle cx="250" cy="62" r="4" fill="#F5A623" opacity="0.7"/>
+  <circle cx="250" cy="62" r="8" fill="none" stroke="#F5A623" stroke-width="1" opacity="0.3"/>
+
+  <!-- Corner quarter-circle accents (brand circle motif) -->
+  <path d="M 0 60 A 60 60 0 0 1 60 0" fill="none" stroke="#F5A623" stroke-width="1.5" opacity="0.2" clip-path="url(#circleClip)"/>
+  <path d="M 500 440 A 60 60 0 0 1 440 500" fill="none" stroke="#F5A623" stroke-width="1.5" opacity="0.2" clip-path="url(#circleClip)"/>
+</svg>
