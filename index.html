@@ -1367,35 +1367,42 @@
       </div>
       <div class="contact-form reveal">
         <div class="form-title">Join the Waitlist ☕</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" placeholder="Juan">
+        <form id="mc-waitlist-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="FNAME" placeholder="Juan">
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="LNAME" placeholder="dela Cruz">
+            </div>
           </div>
           <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="dela Cruz">
+            <label>Email Address</label>
+            <input type="email" name="EMAIL" placeholder="juan@email.com" required>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="juan@email.com">
-        </div>
-        <div class="form-group">
-          <label>I'm interested in…</label>
-          <select>
-            <option>Joining as a member</option>
-            <option>The AI courses / learning tracks</option>
-            <option>Corporate / team upskilling</option>
-            <option>Investing or partnering</option>
-            <option>Just the coffee ☕</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message (optional)</label>
-          <textarea placeholder="Tell us anything — questions, ideas, or just say hi!"></textarea>
-        </div>
-        <button class="form-submit" onclick="handleSubmit(this)">Reserve My Spot →</button>
+          <div class="form-group">
+            <label>I'm interested in…</label>
+            <select>
+              <option>Joining as a member</option>
+              <option>The AI courses / learning tracks</option>
+              <option>Corporate / team upskilling</option>
+              <option>Investing or partnering</option>
+              <option>Just the coffee ☕</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (optional)</label>
+            <textarea placeholder="Tell us anything — questions, ideas, or just say hi!"></textarea>
+          </div>
+          <!-- Mailchimp anti-bot honeypot — do not remove -->
+          <div style="position:absolute;left:-5000px;" aria-hidden="true">
+            <input type="text" name="b_50d0b8b463e65d062c0eee4b5_c24a0d319c" tabindex="-1" value="">
+          </div>
+          <div id="mc-form-response" style="display:none;margin-bottom:1rem;padding:0.75rem 1rem;border-radius:10px;font-size:0.9rem;font-weight:500;"></div>
+          <button type="submit" class="form-submit">Reserve My Spot →</button>
+        </form>
       </div>
     </div>
   </div>
@@ -1472,12 +1479,73 @@
     btn.classList.add('active');
   }
 
-  // Form submit
-  function handleSubmit(btn) {
-    const name = document.querySelector('input[placeholder="Juan"]').value;
-    btn.textContent = '✓ You\'re on the list! We\'ll be in touch.';
-    btn.style.background = '#3d7a40';
-    btn.disabled = true;
+  // Form submit — Mailchimp JSONP
+  const mcForm = document.getElementById('mc-waitlist-form');
+  if (mcForm) {
+    mcForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = mcForm.querySelector('button[type="submit"]');
+      const responseBox = document.getElementById('mc-form-response');
+      const email = mcForm.querySelector('input[name="EMAIL"]').value.trim();
+
+      if (!email) {
+        responseBox.style.display = 'block';
+        responseBox.style.background = '#fee2e2';
+        responseBox.style.color = '#991b1b';
+        responseBox.textContent = 'Please enter your email address.';
+        return;
+      }
+
+      btn.textContent = 'Submitting…';
+      btn.disabled = true;
+      responseBox.style.display = 'none';
+
+      const params = new URLSearchParams({
+        EMAIL: email,
+        FNAME: mcForm.querySelector('input[name="FNAME"]').value.trim(),
+        LNAME: mcForm.querySelector('input[name="LNAME"]').value.trim(),
+        b_50d0b8b463e65d062c0eee4b5_c24a0d319c: ''
+      });
+
+      const cbName = 'mc_cb_' + Date.now();
+      const script = document.createElement('script');
+
+      window[cbName] = function(result) {
+        delete window[cbName];
+        if (document.head.contains(script)) document.head.removeChild(script);
+        responseBox.style.display = 'block';
+        if (result.result === 'success') {
+          btn.textContent = '✓ You\'re on the list! We\'ll be in touch.';
+          btn.style.background = '#3d7a40';
+          responseBox.style.background = '#dcfce7';
+          responseBox.style.color = '#166534';
+          responseBox.textContent = '🎉 You\'re on the waitlist! Check your inbox for a confirmation email.';
+        } else {
+          btn.textContent = 'Reserve My Spot →';
+          btn.disabled = false;
+          responseBox.style.background = '#fee2e2';
+          responseBox.style.color = '#991b1b';
+          responseBox.textContent = result.msg.replace(/<[^>]*>/g, '');
+        }
+      };
+
+      script.src = 'https://github.us19.list-manage.com/subscribe/post-json?u=50d0b8b463e65d062c0eee4b5&id=c24a0d319c&f_id=00dd87e3f0&' + params.toString() + '&c=' + cbName;
+      document.head.appendChild(script);
+
+      // Fallback timeout in case the request hangs
+      setTimeout(function() {
+        if (window[cbName]) {
+          delete window[cbName];
+          if (document.head.contains(script)) document.head.removeChild(script);
+          btn.textContent = 'Reserve My Spot →';
+          btn.disabled = false;
+          responseBox.style.display = 'block';
+          responseBox.style.background = '#fee2e2';
+          responseBox.style.color = '#991b1b';
+          responseBox.textContent = 'Something went wrong. Please try again.';
+        }
+      }, 10000);
+    });
   }
 
   // Smooth nav link active state
